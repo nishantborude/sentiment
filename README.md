@@ -1,6 +1,16 @@
 # Sentiment Classifier and deployment
 This presents code for PoC Sentiment Classifier model and deploying as Cloud Function to serve certain requirements.
 
+## Cloud Function
+
+The cloud function is hosted at https://us-central1-sentiment-http.cloudfunctions.net/sentiment_V1 and it will accept post requests with data:
+```
+{
+"text": <text>
+}
+```
+Please refer to `test_main.py`.
+
 ## Dataset
 
 The dataset is split into 80-20, making sure the relative proportion is maintained in train and test sets. 
@@ -39,4 +49,8 @@ Adding networking costs and for high volume requests such as:
 This can be easily reduced by model optimizing methods such as quantization to reduce the memory footprint thus halving the costs.
 
 
+### Alternatives:
+
+Cloud Run could be a potential alternative where concurrent requests could be served on 1 instance thus saving money.
+AWS Lambda could also be used.
 

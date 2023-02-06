@@ -1,0 +1,5 @@
+flask
+numpy
+google-cloud-storage
+tensorflow
+transformers

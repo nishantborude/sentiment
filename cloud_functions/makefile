@@ -8,4 +8,4 @@ deploy_function_sentiment:
 	--set-env-vars BUCKET=models_store_sentiment,VERSION=$(VERSION) \
 	--trigger-http \
   	--allow-unauthenticated \
-  	--memory 512 \
+  	--memory 2048 \

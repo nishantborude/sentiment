@@ -80,7 +80,7 @@ def sentiment(request):
     global tokenizer, model
 
     if json_data and "text" in json_data:
-        text = json_data["data"]["text"]
+        text = json_data["text"]
     else:
         raise ValueError('Missing Field: text')
 

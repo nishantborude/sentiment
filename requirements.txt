@@ -1,4 +1,8 @@
 flask
 numpy
+pandas
 transformers
 tensorflow
+scikit-learn
+matplotlib
+

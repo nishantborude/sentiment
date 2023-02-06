@@ -41,10 +41,11 @@ def get_classifier_output(tokenizer, model, sentence):
 
     output = model(tokens)
     tf_predictions = tf.nn.softmax(output[0], axis=-1)
+    np_predictions = tf_predictions.numpy()
 
-    classes = np.argmax(tf_predictions.numpy(), axis=-1)
+    classes = np.argmax(np_predictions, axis=-1)
 
-    return classes
+    return classes, np_predictions[classes]
 
 
 def download_blob(bucket_name, source_blob_name, destination_file_name):
@@ -94,13 +95,14 @@ def sentiment(request):
             load_path)
 
     model_input = text
-    sentiment = get_classifier_output(
+    sentiment, score = get_classifier_output(
         tokenizer, model, model_input)
     sentiment = sentiment.item()
+    score = score.item()
 
     if sentiment == 1:
         sentiment = 'Positive'
     else:
         sentiment = 'Negative'
 
-    return sentiment
+    return sentiment, score

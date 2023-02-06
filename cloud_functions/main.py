@@ -44,8 +44,9 @@ def get_classifier_output(tokenizer, model, sentence):
     np_predictions = tf_predictions.numpy()
 
     classes = np.argmax(np_predictions, axis=-1)
+    scores = np.max(np_predictions, axis=-1)
 
-    return classes, np_predictions[classes]
+    return classes, scores
 
 
 def download_blob(bucket_name, source_blob_name, destination_file_name):
@@ -105,4 +106,8 @@ def sentiment(request):
     else:
         sentiment = 'Negative'
 
-    return sentiment, score
+    response = {
+        "sentiment": sentiment,
+        "score": score
+    }
+    return response

@@ -2,6 +2,7 @@ import unittest
 import unittest.mock
 
 import requests
+import json
 
 
 def structure_query(text):
@@ -22,10 +23,13 @@ def req_and_resp(text):
         print(response.text)
         return
 
-    sentiment = response.text
+    response_data = json.loads(response.text)
+    sentiment = response_data["sentiment"]
+    score = response_data["score"]
     print("Sentiment: ", sentiment)
+    print("Score: ", score)
 
-    return sentiment
+    return sentiment, score
 
 
 class TestCloudFunction(unittest.TestCase):
@@ -37,5 +41,5 @@ class TestCloudFunction(unittest.TestCase):
         }
 
         for sentence, sentiment in sentences.items():
-
-            assert req_and_resp(sentence) == sentiment
+            pred_sentiment, _ = req_and_resp(sentence)
+            assert pred_sentiment == sentiment
